@@ -8,8 +8,8 @@ class MediaUrlParser
     {
         if (preg_match('/\bhttps?:\/\//i', $mediaPath)) {
             $path = parse_url($mediaPath, PHP_URL_PATH);
-            $path = ltrim($path, '/media/');
-            $path = ltrim($path, '/pub/media/');
+            $path = str_replace( '/media/', '', $path);
+            $path = str_replace( '/pub/media/', '', $path);
 
             return $path;
         } else {

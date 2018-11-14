@@ -60,7 +60,19 @@ class GeneratorTest extends \PHPUnit\Framework\TestCase
 
     public function testItReturnsEmptySrcSetWhenFileDoesNotExist()
     {
-        $wysiwygUploadDirectoryPath = realpath(__DIR__ . '/../../assets');
+        $wysiwygUploadDirectoryPath = realpath(__DIR__ . '/../assets');
+
+        $this->directoryListStub->method('getPath')->willReturn($wysiwygUploadDirectoryPath);
+
+        $this->assertEquals(
+            '',
+            $this->generator->generateSrcSet('{{media url="wysiwyg/not_existing.jpg"}}')
+        );
+    }
+
+    public function testItReturnsEmptySrcSetWhenFileIsGif()
+    {
+        $wysiwygUploadDirectoryPath = realpath(__DIR__ . '/../assets');
 
         $this->directoryListStub->method('getPath')->willReturn($wysiwygUploadDirectoryPath);
 
