@@ -19,7 +19,7 @@ class GeneratorTest extends \PHPUnit\Framework\TestCase
 
     protected $thumbsDirectory = __DIR__ . '/../../assets/.thumbs';
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
 
