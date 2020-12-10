@@ -64,7 +64,7 @@ class Generator
             $srcSet[] = $this->generateSrcSetElement($this->getUrlByPath($resizedFilePath), $resizedImageWidth);
         }
 
-        return implode($srcSet, ', ');
+        return implode(', ', $srcSet);
     }
 
     /**
