@@ -7,12 +7,12 @@ class MediaResolverTest extends \PHPUnit\Framework\TestCase
     /**
      * @var \Magento\TestFramework\ObjectManager
      */
-    private $objectManager;
+    protected $objectManager;
 
     /**
      * @var \MageSuite\Media\Service\MediaResolver
      */
-    private $mediaResolver;
+    protected $mediaResolver;
 
     public function setUp(): void
     {
@@ -23,9 +23,11 @@ class MediaResolverTest extends \PHPUnit\Framework\TestCase
 
     public function testItCorrectlyResolvesMediaPath()
     {
+        $url = $this->mediaResolver->resolve('{{media url="wysiwyg/test.png"}}');
+        $url = str_replace('pub/', '', $url);
         $this->assertEquals(
-            'http://localhost/pub/media/wysiwyg/test.png',
-            $this->mediaResolver->resolve('{{media url="wysiwyg/test.png"}}')
+            'http://localhost/media/wysiwyg/test.png',
+            $url
         );
     }
 }

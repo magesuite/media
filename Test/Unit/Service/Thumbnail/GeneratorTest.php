@@ -30,7 +30,6 @@ class GeneratorTest extends \PHPUnit\Framework\TestCase
 
     public function testItResizesImagesProperly()
     {
-
         $this->thumbnailGenerator->generateThumbnails(realpath(__DIR__ . '/../../assets/test.jpg'));
 
         foreach ($this->targetWidthsDefault as $targetWidth) {
