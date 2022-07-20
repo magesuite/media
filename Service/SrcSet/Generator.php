@@ -23,7 +23,8 @@ class Generator
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
         \Magento\Cms\Model\Template\FilterProvider $filterProvider
-    ) {
+    )
+    {
         $this->storeManager = $storeManager;
         $this->directoryList = $directoryList;
         $this->filterProvider = $filterProvider;

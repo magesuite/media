@@ -12,12 +12,13 @@ class MediaResolver
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */
-    protected $storeManager;
+    private $storeManager;
 
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         MediaUrlParser $mediaUrlParser
-    ) {
+    )
+    {
         $this->storeManager = $storeManager;
         $this->mediaUrlParser = $mediaUrlParser;
     }
