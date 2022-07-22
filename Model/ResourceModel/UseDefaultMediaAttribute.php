@@ -145,7 +145,7 @@ class UseDefaultMediaAttribute
         $linkField = $this->metadataPool->getMetadata(\Magento\Catalog\Api\Data\ProductInterface::class)->getLinkField();
         $catalogProductEntityTableName = $this->connection->getTableName('catalog_product_entity');
 
-        $select = $this->connection->select()->from($tableName, 'value_id')
+        $select = $this->connection->select()->from(['main_table' => $tableName], 'value_id')
             ->join(
                 ['product' => $catalogProductEntityTableName],
                 "product.{$linkField} = main_table.{$linkField}",
