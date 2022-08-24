@@ -29,7 +29,10 @@ class UseDefaultMediaAttribute
      */
     public function hasStoreData(int $productId, int $storeId): bool
     {
-        $galleryTables = ['catalog_product_entity_gallery', 'catalog_product_entity_media_gallery_value'];
+        $galleryTables = [
+            'catalog_product_entity_gallery',
+            'catalog_product_entity_media_gallery_value',
+        ];
 
         foreach ($galleryTables as $galleryTable) {
             $galleryMediaTable = $this->connection->getTableName($galleryTable);
@@ -151,6 +154,7 @@ class UseDefaultMediaAttribute
                 "product.{$linkField} = main_table.{$linkField}",
                 ''
             )
+            ->where("main_table.{$linkField} = ?", $productId)
             ->where('store_id = ?', $storeId);
 
         $select->limit(1);
