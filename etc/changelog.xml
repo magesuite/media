@@ -33,6 +33,13 @@
                     <ticket_id>MGP-788</ticket_id>
                 </entry>
             </tag>
+            <tag version="v1.1.5" date="2022-11-09">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Remove unnecessary 'Default Images and Videos' attribute group.</overview>
+                    <ticket_id>MGP-3221</ticket_id>
+                </entry>
+            </tag>
         </changelog>
     </module>
 </config>
