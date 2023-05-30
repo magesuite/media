@@ -6,14 +6,15 @@ namespace MageSuite\Media\Plugin\Catalog\Model\Product;
 
 class RemoveMediaStoreData
 {
-    protected \MageSuite\Media\Model\ResourceModel\UseDefaultMediaAttribute $useDefaulMediaAttributeResourceModel;
+    protected \Magento\Framework\App\RequestInterface $request;
+    protected \MageSuite\Media\Model\ResourceModel\UseDefaultMediaAttribute $useDefaultMediaAttributeResourceModel;
 
     public function __construct(
         \Magento\Framework\App\RequestInterface $request,
-        \MageSuite\Media\Model\ResourceModel\UseDefaultMediaAttribute $useDefaulMediaAttributeResourceModel
+        \MageSuite\Media\Model\ResourceModel\UseDefaultMediaAttribute $useDefaultMediaAttributeResourceModel
     ) {
         $this->request = $request;
-        $this->useDefaulMediaAttributeResourceModel = $useDefaulMediaAttributeResourceModel;
+        $this->useDefaultMediaAttributeResourceModel = $useDefaultMediaAttributeResourceModel;
     }
 
     /**
@@ -29,7 +30,7 @@ class RemoveMediaStoreData
             return $product;
         }
 
-        $this->useDefaulMediaAttributeResourceModel->removeStoreData(
+        $this->useDefaultMediaAttributeResourceModel->removeStoreData(
             (int) $product->getId(),
             (int) $product->getStoreId()
         );
