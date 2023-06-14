@@ -9,21 +9,21 @@ class AddUseDefaultField
     protected const FIELD_LABEL = 'Use default';
     public const FIELD_NAME = 'use_default_media';
 
-    protected \Magento\Framework\Data\Form\Element\CheckboxFactory $checkboxField;
+    protected \Magento\Framework\Data\Form\Element\CheckboxFactory $checkboxFieldFactory;
     protected \Magento\Framework\Data\Form $form;
     protected \Magento\Framework\App\RequestInterface $request;
-    protected \MageSuite\Media\Model\ResourceModel\UseDefaultMediaAttribute $useDefaulMediaAttributeResourceModel;
+    protected \MageSuite\Media\Model\ResourceModel\UseDefaultMediaAttribute $useDefaultMediaAttributeResourceModel;
 
     public function __construct(
         \Magento\Framework\Data\Form\Element\CheckboxFactory $checkboxFieldFactory,
         \Magento\Framework\Data\Form $form,
         \Magento\Framework\App\RequestInterface $request,
-        \MageSuite\Media\Model\ResourceModel\UseDefaultMediaAttribute $useDefaulMediaAttributeResourceModel
+        \MageSuite\Media\Model\ResourceModel\UseDefaultMediaAttribute $useDefaultMediaAttributeResourceModel
     ) {
         $this->checkboxFieldFactory = $checkboxFieldFactory;
         $this->form = $form;
         $this->request = $request;
-        $this->useDefaulMediaAttributeResourceModel = $useDefaulMediaAttributeResourceModel;
+        $this->useDefaultMediaAttributeResourceModel = $useDefaultMediaAttributeResourceModel;
     }
 
     /**
@@ -57,7 +57,7 @@ class AddUseDefaultField
                     'html_id' => self::FIELD_NAME,
                     'after_element_html' => self::FIELD_LABEL,
                     'onchange' => $onchangeScript,
-                    'checked' => !$this->useDefaulMediaAttributeResourceModel->hasStoreData($productId, $storeId)
+                    'checked' => !$this->useDefaultMediaAttributeResourceModel->hasStoreData($productId, $storeId)
                 ]
             ]
         );
