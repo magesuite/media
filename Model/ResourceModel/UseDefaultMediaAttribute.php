@@ -136,14 +136,8 @@ class UseDefaultMediaAttribute
 
         return $this->mediaImageAttributes;
     }
-
-    /**
-     * @param $backendType
-     * @param int $storeId
-     * @param int $productId
-     * @return array|bool
-     */
-    protected function existValuesInTable($tableName, int $storeId, int $productId, int $attributeId = null) //phpcs:ignore
+    
+    protected function existValuesInTable(string $tableName, int $storeId, int $productId, ?int $attributeId = null) //phpcs:ignore
     {
         $linkField = $this->metadataPool->getMetadata(\Magento\Catalog\Api\Data\ProductInterface::class)->getLinkField();
         $catalogProductEntityTableName = $this->connection->getTableName('catalog_product_entity');
