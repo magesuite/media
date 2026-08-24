@@ -136,7 +136,7 @@ class UseDefaultMediaAttribute
 
         return $this->mediaImageAttributes;
     }
-    
+
     protected function existValuesInTable(string $tableName, int $storeId, int $productId, ?int $attributeId = null) //phpcs:ignore
     {
         $linkField = $this->metadataPool->getMetadata(\Magento\Catalog\Api\Data\ProductInterface::class)->getLinkField();
