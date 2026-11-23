@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="redundant_store_data" translate="label" type="text" sortOrder="10" showInDefault="1">
+        <label>Redundant Store View Image Data</label>
+        <field id="remove_on_save" translate="label comment" type="select" sortOrder="10" showInDefault="1">
+            <label>Remove on Product Save</label>
+            <comment>After a product is saved in a store view, remove store view gallery values and image roles identical to the default values.</comment>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="remove_by_cron" translate="label comment" type="select" sortOrder="20" showInDefault="1">
+            <label>Remove by Cron</label>
+            <comment>Periodically remove store view gallery values and image roles identical to the default values for all products.</comment>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="cron_schedule" translate="label" type="text" sortOrder="30" showInDefault="1">
+            <label>Cron Schedule</label>
+            <depends>
+                <field id="remove_by_cron">1</field>
+            </depends>
+        </field>
+    </group>
+</include>

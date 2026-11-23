@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <magesuite_media>
+            <redundant_store_data>
+                <remove_on_save>0</remove_on_save>
+                <remove_by_cron>0</remove_by_cron>
+                <cron_schedule>0 3 * * *</cron_schedule>
+            </redundant_store_data>
+        </magesuite_media>
+    </default>
+</config>

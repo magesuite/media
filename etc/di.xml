@@ -5,5 +5,15 @@
         <plugin name="remove_media_store_data"
                 type="MageSuite\Media\Plugin\Catalog\Model\Product\RemoveMediaStoreData"
                 sortOrder="200" />
+        <plugin name="remove_redundant_media_store_data"
+                type="MageSuite\Media\Plugin\Catalog\Model\Product\RemoveRedundantMediaStoreData"
+                sortOrder="210" />
+    </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="remove_redundant_store_media_data" xsi:type="object">MageSuite\Media\Console\Command\RemoveRedundantStoreMediaData</item>
+            </argument>
+        </arguments>
     </type>
 </config>

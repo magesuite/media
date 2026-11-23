@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="remove_redundant_store_media_data" instance="MageSuite\Media\Cron\RemoveRedundantStoreMediaData" method="execute">
+            <config_path>magesuite_media/redundant_store_data/cron_schedule</config_path>
+        </job>
+    </group>
+</config>
