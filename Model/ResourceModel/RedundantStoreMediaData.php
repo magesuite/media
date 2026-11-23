@@ -26,6 +26,7 @@ class RedundantStoreMediaData
     {
         $connection = $this->resourceConnection->getConnection();
         $select = $connection->select()
+            ->distinct()
             ->from($this->resourceConnection->getTableName('catalog_product_entity'), 'entity_id')
             ->where('entity_id > ?', $lastProductId)
             ->order('entity_id ASC')
