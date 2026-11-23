@@ -58,10 +58,11 @@ class RemoveRedundantMediaStoreDataTest extends \PHPUnit\Framework\TestCase
     protected function getStoreGalleryValueIds(int $storeId): array
     {
         $connection = $this->resourceConnection->getConnection();
-        $productId = (int)$this->productRepository->get(self::FIXTURE_SKU)->getId();
+        $linkField = $this->objectManager->get(\Magento\Framework\EntityManager\MetadataPool::class)->getMetadata(\Magento\Catalog\Api\Data\ProductInterface::class)->getLinkField();
+        $productLinkId = (int)$this->productRepository->get(self::FIXTURE_SKU)->getData($linkField);
         $select = $connection->select()
             ->from($this->resourceConnection->getTableName(\Magento\Catalog\Model\ResourceModel\Product\Gallery::GALLERY_VALUE_TABLE), 'value_id')
-            ->where('entity_id = ?', $productId)
+            ->where(sprintf('%s = ?', $linkField), $productLinkId)
             ->where('store_id = ?', $storeId);
 
         return $connection->fetchCol($select);

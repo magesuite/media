@@ -15,6 +15,8 @@ class RedundantStoreMediaDataTest extends \PHPUnit\Framework\TestCase
     protected ?\Magento\Framework\App\ResourceConnection $resourceConnection;
     protected ?\MageSuite\Media\Model\ResourceModel\RedundantStoreMediaData $redundantStoreMediaData;
     protected int $productId;
+    protected int $productLinkId;
+    protected string $linkField;
     protected int $secondStoreId;
 
     protected function setUp(): void
@@ -132,17 +134,20 @@ class RedundantStoreMediaDataTest extends \PHPUnit\Framework\TestCase
     protected function prepareStoreData(): void
     {
         $productRepository = $this->objectManager->get(\Magento\Catalog\Api\ProductRepositoryInterface::class);
-        $this->productId = (int)$productRepository->get(self::FIXTURE_SKU)->getId();
+        $product = $productRepository->get(self::FIXTURE_SKU);
+        $this->linkField = $this->objectManager->get(\Magento\Framework\EntityManager\MetadataPool::class)->getMetadata(\Magento\Catalog\Api\Data\ProductInterface::class)->getLinkField();
+        $this->productId = (int)$product->getId();
+        $this->productLinkId = (int)$product->getData($this->linkField);
         $this->secondStoreId = (int)$this->objectManager->get(\Magento\Store\Model\StoreManagerInterface::class)->getStore(self::SECOND_STORE_CODE)->getId();
         $connection = $this->resourceConnection->getConnection();
 
-        $connection->delete($this->getGalleryValueTable(), ['entity_id = ?' => $this->productId, 'store_id = ?' => $this->secondStoreId]);
+        $connection->delete($this->getGalleryValueTable(), [$this->getLinkFieldCondition() => $this->productLinkId, 'store_id = ?' => $this->secondStoreId]);
 
         foreach ($this->getDefaultGalleryValueIds() as $valueId) {
             $connection->insert($this->getGalleryValueTable(), [
                 'value_id' => $valueId,
                 'store_id' => $this->secondStoreId,
-                'entity_id' => $this->productId,
+                $this->linkField => $this->productLinkId,
                 'label' => null,
                 'position' => null,
                 'disabled' => 0,
@@ -159,18 +164,18 @@ class RedundantStoreMediaDataTest extends \PHPUnit\Framework\TestCase
 
         foreach ($values as $attributeCode => $value) {
             $attribute = $eavConfig->getAttribute(\Magento\Catalog\Model\Product::ENTITY, $attributeCode);
-            $connection->delete($attribute->getBackendTable(), ['attribute_id = ?' => $attribute->getId(), 'entity_id = ?' => $this->productId, 'store_id = ?' => $this->secondStoreId]);
+            $connection->delete($attribute->getBackendTable(), ['attribute_id = ?' => $attribute->getId(), $this->getLinkFieldCondition() => $this->productLinkId, 'store_id = ?' => $this->secondStoreId]);
             $connection->insert($attribute->getBackendTable(), [
                 'attribute_id' => $attribute->getId(),
                 'store_id' => $this->secondStoreId,
-                'entity_id' => $this->productId,
+                $this->linkField => $this->productLinkId,
                 'value' => $value,
             ]);
         }
 
         $connection->delete($eavConfig->getAttribute(\Magento\Catalog\Model\Product::ENTITY, 'swatch_image')->getBackendTable(), [
             'attribute_id = ?' => $eavConfig->getAttribute(\Magento\Catalog\Model\Product::ENTITY, 'swatch_image')->getId(),
-            'entity_id = ?' => $this->productId,
+            $this->getLinkFieldCondition() => $this->productLinkId,
             'store_id = ?' => $this->secondStoreId,
         ]);
     }
@@ -186,7 +191,7 @@ class RedundantStoreMediaDataTest extends \PHPUnit\Framework\TestCase
             $select = $connection->select()
                 ->from($attribute->getBackendTable(), 'value')
                 ->where('attribute_id = ?', $attribute->getId())
-                ->where('entity_id = ?', $this->productId)
+                ->where($this->getLinkFieldCondition(), $this->productLinkId)
                 ->where('store_id = ?', $this->secondStoreId);
             $value = $connection->fetchOne($select);
 
@@ -213,7 +218,7 @@ class RedundantStoreMediaDataTest extends \PHPUnit\Framework\TestCase
         $connection = $this->resourceConnection->getConnection();
         $select = $connection->select()
             ->from($this->getGalleryValueTable(), 'value_id')
-            ->where('entity_id = ?', $this->productId)
+            ->where($this->getLinkFieldCondition(), $this->productLinkId)
             ->where('store_id = ?', $storeId)
             ->order('value_id ASC');
 
@@ -223,6 +228,11 @@ class RedundantStoreMediaDataTest extends \PHPUnit\Framework\TestCase
     protected function updateStoreGalleryRow(int $valueId, array $data): void
     {
         $this->resourceConnection->getConnection()->update($this->getGalleryValueTable(), $data, ['value_id = ?' => $valueId, 'store_id = ?' => $this->secondStoreId]);
+    }
+
+    protected function getLinkFieldCondition(): string
+    {
+        return sprintf('%s = ?', $this->linkField);
     }
 
     protected function getGalleryValueTable(): string
