@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magesuite" translate="label" sortOrder="300">
+            <label>MageSuite</label>
+        </tab>
+        <section id="magesuite_media" translate="label" type="text" sortOrder="1000" showInDefault="1">
+            <label>Media</label>
+            <tab>magesuite</tab>
+            <resource>MageSuite_Media::config</resource>
+            <include path="MageSuite_Media::system/redundant_store_data.xml"/>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,7 @@
+"Media","Media"
+"Redundant Store View Image Data","Redundant Store View Image Data"
+"Remove on Product Save","Remove on Product Save"
+"After a product is saved in a store view, remove store view gallery values and image roles identical to the default values.","After a product is saved in a store view, remove store view gallery values and image roles identical to the default values."
+"Remove by Cron","Remove by Cron"
+"Periodically remove store view gallery values and image roles identical to the default values for all products.","Periodically remove store view gallery values and image roles identical to the default values for all products."
+"Cron Schedule","Cron Schedule"
